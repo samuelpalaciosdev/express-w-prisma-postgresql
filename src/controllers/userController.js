@@ -13,4 +13,21 @@ const getSingleUser = async (req, res) => {
   return res.json(users)
 }
 
-module.exports = { getAllUsers, getSingleUser }
+const createUser = async (req, res) => {
+  const { name, email } = req.body
+
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Please provide name and email' })
+  }
+
+  const user = await prisma.user.create({
+    data: {
+      name,
+      email,
+    },
+  })
+
+  return res.status(201).json({ user })
+}
+
+module.exports = { getAllUsers, getSingleUser, createUser }

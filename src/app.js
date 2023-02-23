@@ -5,9 +5,9 @@ const app = express()
 const port = process.env.PORT || 5000
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
-
 // Routers
 const taskRouter = require('./routes/taskRoutes')
+const userRouter = require('./routes/userRoutes')
 // Extra packages
 const morgan = require('morgan')
 
@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(morgan('tiny'))
 
 app.use('/api/tasks', taskRouter)
+app.use('/api/users', userRouter)
 app.get('/', (req, res) => {
   res.status(200).send('Home page')
 })
